@@ -46,6 +46,7 @@ REST_FRAMEWORK_APPS = [
 
 LOCAL_APPS = [
     "profiles",
+    "tweets",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + REST_FRAMEWORK_APPS
