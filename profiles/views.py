@@ -56,7 +56,7 @@ class ProfileDetail(APIView):
             profile = User.objects.get(id=pk)
         except ObjectDoesNotExist:
             return Response(
-                "Profile doesnot exist.", status=status.HTTP_400_BAD_REQUEST
+                "Profile doesnot exist.", status=status.HTTP_404_NOT_FOUND
             )
 
         serializer = serializers.ProfileSerializer(profile)
@@ -72,7 +72,7 @@ class FollowUnfollowView(APIView):
         except ObjectDoesNotExist:
             return Response(
                 "target Profile doesnot exist.",
-                status=status.HTTP_400_BAD_REQUEST
+                status=status.HTTP_404_NOT_FOUND
             )
 
         current_user = request.user
