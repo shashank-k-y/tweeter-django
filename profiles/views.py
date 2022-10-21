@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 from profiles import serializers
 from profiles.models import create_auth_token, User # noqa
@@ -39,6 +40,7 @@ def logout_view(request):
 
 
 class ProfileList(APIView):
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         profiles = User.objects.all()
@@ -47,6 +49,7 @@ class ProfileList(APIView):
 
 
 class ProfileDetail(APIView):
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, pk):
         try:
@@ -58,3 +61,51 @@ class ProfileDetail(APIView):
 
         serializer = serializers.ProfileSerializer(profile)
         return Response(serializer.data)
+
+
+class FollowUnfollowView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, action, pk):
+        try:
+            target_user = User.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response(
+                "target Profile doesnot exist.",
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        current_user = request.user
+        target_user_followers = target_user.followers
+        if action == "follow":
+            if current_user in target_user_followers.all():
+                return Response(
+                    f"You are already following {target_user.username}.",
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            else:
+                target_user_followers.add(current_user.id)
+
+            return Response(
+                f"successfully following {target_user.username}.",
+                status=status.HTTP_200_OK
+            )
+
+        elif action == "unfollow":
+            if current_user not in target_user_followers.all():
+                return Response(
+                    f"you are not following {target_user.username}.",
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            else:
+                target_user_followers.remove(current_user)
+                return Response(
+                    f"successfully unfollowed {target_user.username}."
+                )
+
+        else:
+            return Response(
+                "Invalid action", status=status.HTTP_400_BAD_REQUEST
+            )
