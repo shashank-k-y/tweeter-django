@@ -7,5 +7,7 @@ from profiles import views
 urlpatterns = [
     path('login/', obtain_auth_token, name='login'),
     path('register/', views.registration_view, name='register'),
-    path('logout/', views.logout_view, name='logout')
+    path('logout/', views.logout_view, name='logout'),
+    path('', views.ProfileList.as_view(), name='list'),
+    path('<int:pk>', views.ProfileDetail.as_view(), name="deatil")
 ]

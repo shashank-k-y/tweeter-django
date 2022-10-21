@@ -1,17 +1,19 @@
-# Create your views here.
+from django.core.exceptions import ObjectDoesNotExist
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
-from profiles.serializers import RegistrationSerializer
-from profiles.models import create_auth_token # noqa
+from rest_framework.views import APIView
+
+from profiles import serializers
+from profiles.models import create_auth_token, User # noqa
 
 
 @api_view(['POST', ])
 def registration_view(request):
     if request.method == 'POST':
-        serializer = RegistrationSerializer(data=request.data)
+        serializer = serializers.RegistrationSerializer(data=request.data)
         if not serializer.is_valid():
             return Response(
                 data=serializer.errors,
@@ -34,3 +36,25 @@ def logout_view(request):
         request.user.auth_token.delete()
         data = f"{request.user.username} logoout Successful !"
         return Response(data=data, status=status.HTTP_200_OK)
+
+
+class ProfileList(APIView):
+
+    def get(self, request):
+        profiles = User.objects.all()
+        serializer = serializers.ProfileSerializer(profiles, many=True)
+        return Response(serializer.data)
+
+
+class ProfileDetail(APIView):
+
+    def get(self, request, pk):
+        try:
+            profile = User.objects.get(id=pk)
+        except ObjectDoesNotExist:
+            return Response(
+                "Profile doesnot exist.", status=status.HTTP_400_BAD_REQUEST
+            )
+
+        serializer = serializers.ProfileSerializer(profile)
+        return Response(serializer.data)

@@ -33,3 +33,22 @@ class RegistrationSerializer(serializers.ModelSerializer):
         account.set_password(password)
         account.save()
         return account
+
+
+class EachProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.User
+        fields = ('id', 'username', 'email', 'bio', 'followers', 'following')
+        read_only_fields = (
+            'id', 'username', 'email', 'bio', 'followers', 'following'
+        )
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    following = EachProfileSerializer(many=True, read_only=True)
+    followers = EachProfileSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = models.User
+        fields = ('id', 'username', 'email', 'bio', 'followers', 'following')
