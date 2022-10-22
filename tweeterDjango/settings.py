@@ -130,6 +130,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 AUTH_USER_MODEL = 'profiles.User'
 
@@ -138,3 +142,15 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
 }
+
+# aws s3 credentials
+
+AWS_ACCESS_KEY_ID = "AKIA6GVBHIFXHX27AQJZ"
+AWS_SECRET_ACCESS_KEY = "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"
+AWS_STORAGE_BUCKET_NAME = "tweetmedia"
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_REGION_NAME = "ap-south-1"
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_S3_VERIFY = True
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage' 
