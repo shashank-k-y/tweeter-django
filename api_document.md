@@ -306,6 +306,46 @@ Authorization: Token 'access token'
   
 method: GET
 URL: ```http://ec2-3-111-186-37.ap-south-1.compute.amazonaws.com:8000/tweets/feed```
+
+addition query_parameters:
+
+| parameters     | description       |
+| -------------- | ------------------|
+| p              | page number       |
+| page_size      | page size         |
+
+
+
+```json
+{
+    "count": 8,
+    "next": "http://127.0.0.1:8000/tweets/feed/?p=2",
+    "previous": null,
+    "results": [
+        {
+            "id": 8,
+            "tweeter": 2,
+            "file": null,
+            "text": "mohans post",
+            "presigned_url": null
+        },
+        {
+            "id": 7,
+            "tweeter": 4,
+            "file": null,
+            "text": "sachins post",
+            "presigned_url": null
+        },
+        {
+            "id": 6,
+            "tweeter": 1,
+            "file": "https://tweetmedia.s3.amazonaws.com/django11.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA6GVBHIFXHX27AQJZ%2F20221022%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20221022T153737Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=309852d401bcbfc299af16b0b5ae5baef6943bb00fee8e234e0c63164cd6a87d",
+            "text": "fdsfdsfsg",
+            "presigned_url": "https://tweetmedia.s3.amazonaws.com/django11.jpg?response-content-type=image%2Fjpeg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA6GVBHIFXHX27AQJZ%2F20221022%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20221022T153737Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=cd40c91ce305adf6a0ea924f6abde210e33fc483b74e5c1ed72a51a0056901d9"
+        }
+    ]
+}
+```
   
  
 
