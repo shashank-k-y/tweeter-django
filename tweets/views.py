@@ -5,6 +5,9 @@ from .models import Tweet
 from .serializers import TweetSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework import generics
+
+from .pagination import CustomPagination
 
 
 class TweetView(APIView):
@@ -49,14 +52,14 @@ class TweetDetailView(APIView):
         return Response(serializer.data, status=200)
 
 
-class FeedView(APIView):
+class FeedList(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
+    serializer_class = TweetSerializer
+    pagination_class = CustomPagination
 
-    def get(self, request):
+    def get_queryset(self):
         data = Tweet.objects.filter(
-            Q(tweeter__in=request.user.following.all()) |
-            Q(tweeter=request.user)
+            Q(tweeter__in=self.request.user.following.all()) |
+            Q(tweeter=self.request.user)
         ).order_by("-created_at")
-
-        serializer = TweetSerializer(data, many=True)
-        return Response(serializer.data)
+        return data
