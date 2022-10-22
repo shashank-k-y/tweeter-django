@@ -130,7 +130,7 @@ header:
 Authorization: Token 'access token'
 
 method: GET
-URL: http://ec2-3-111-186-37.ap-south-1.compute.amazonaws.com:8000/profiles/<id>
+URL: ```http://ec2-3-111-186-37.ap-south-1.compute.amazonaws.com:8000/profiles/<id>```
 
 success response:
 
@@ -158,7 +158,7 @@ header:
 Authorization: Token 'access token'
 
 method: POST
-URL: http://ec2-3-111-186-37.ap-south-1.compute.amazonaws.com:8000/profiles/<id>/<action>
+URL: ```http://ec2-3-111-186-37.ap-south-1.compute.amazonaws.com:8000/profiles/<id>/<action>```
   
 Request Parameters
 
@@ -181,7 +181,7 @@ Success Response 200:
 ## 7. Post Tweet API
   
 method: POST
-URL: http://ec2-3-111-186-37.ap-south-1.compute.amazonaws.com:8000/tweets/
+URL: ```http://ec2-3-111-186-37.ap-south-1.compute.amazonaws.com:8000/tweets/```
   
 Authorization: Token 'access token'
   
@@ -218,7 +218,7 @@ failed response 400
 
 ## 8. Get all tweets posted by user.
   method: GET
-  URL: http://ec2-3-111-186-37.ap-south-1.compute.amazonaws.com:8000/tweets/
+  URL: ```http://ec2-3-111-186-37.ap-south-1.compute.amazonaws.com:8000/tweets/```
   
   
 Authorization: Token 'access token'
@@ -274,7 +274,7 @@ failed Response:
 ## 9. Fetch tweet by id
   
   method: GET
-  URL: http://ec2-3-111-186-37.ap-south-1.compute.amazonaws.com:8000/tweets/<id>
+  URL: ```http://ec2-3-111-186-37.ap-south-1.compute.amazonaws.com:8000/tweets/<id>```
   
 Authorization: Token 'access token'
   
@@ -305,7 +305,7 @@ failed response 404:
 Authorization: Token 'access token'
   
 method: GET
-URL: http://ec2-3-111-186-37.ap-south-1.compute.amazonaws.com:8000/tweets/feed
+URL: ```http://ec2-3-111-186-37.ap-south-1.compute.amazonaws.com:8000/tweets/feed```
   
  
 
